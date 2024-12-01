@@ -1,0 +1,15 @@
+--- 
+page:
+  background: "#F4EBDB"
+  transparency: 30
+font:
+  "Ariel"
+palette: ["#483B8B", "#CDD500", "#54616C", "#6B007B", "#E044A7", "#744EC2", "#D9B300", "#D64550", "#9C755F", "#BAB0AC"]
+
+---
+page: 
+  background: "#F4EBDB"
+  transparency: 30
+font:
+  "Tahoma"
+palette: ["#4E79A7", "#F28E2B", "#E15759", "#76B7B2", "#59A14F", "#EDC948", "#B07AA1", "#FF9DA7", "#9C755F", "#BAB0AC"]
