@@ -13,6 +13,7 @@ Visual Type | Progress
 Card | Done
 Bookmark | Done
 Textbox | Done
-Table | Next
+Table | Done
+Matrix | Done
 Slicer | Next
 ... | 

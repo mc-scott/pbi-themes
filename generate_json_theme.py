@@ -17,12 +17,14 @@ with open("config.yaml", "r", encoding="utf-8") as f:
     config = list(yaml.safe_load_all(f))
 
 # set variables to alter json theme
-NAME = "Python Generated Theme"
+NAME = "python-generated-theme"
 VISUAL_BACKGROUND = "#F2F2F2"  #EFF5F6
+TITLE_TEXT_COLOUR = "FFFFFF"
+TEXT_COLOUR = "#3D4E57"
 
 # set theme from yaml config file
 # tpr = 0; tableau = 1
-THEME = 0
+THEME = 1
 
 FONT = config[THEME]["font"]
 PAGE_BACKGROUND = config[THEME]["page"]["background"]
@@ -143,8 +145,8 @@ json_blob = {
                     "titleWrap": True
                     }],
                 "divider": [{
-                    "show": False,
-                    "color": {"solid": {"color": "#F0F2F2"}},
+                    "show": True,
+                    "color": {"solid": {"color": VISUAL_BACKGROUND}},
                     "style": "solid",
                     "width": 2,
                     "ignorePadding": True
@@ -170,26 +172,26 @@ json_blob = {
                     }],
                 "dropShadow":   [{
                     "show": True,
-                    "color": {"solid": {"color": "#808080"}},
+                    "color": {"solid": {"color": COLOUR_PALETTE[0]}},
                     "position":"Outer",
                     "preset":"BottomRight"
                     }],
                 "visualHeaderTooltip":[{
                     "type": "Default",
-                    "titleFontColor":{"solid":{"color":"#E34820"}},
-                    "text": "Your developer hasn't added a tooltip",
-                    "fontSize": 10,
+                    "titleFontColor":{"solid":{"color": COLOUR_PALETTE[1]}},
+                    "text": "Hover over the visual level filter icon to see if any filters are applied to this visual",
+                    "fontSize": 12,
                     "fontFamily": FONT,
-                    "background":{"solid":{"color":"#D1CAB8"}},
+                    "background":{"solid":{"color": TEXT_COLOUR}},
                     "transparency": TOOLTIP_TRANSPARENCY,
                     "bold": False,
-                    "italic": False,
+                    "italic": True,
                     "underline": False
                         }],
                 "visualHeader": [{
                     "showVisualInformationButton": True,
-                    "showVisualWarningButton": False,
-                    "showVisualErrorButton": False,
+                    "showVisualWarningButton": True,
+                    "showVisualErrorButton": True,
                     "showDrillRoleSelector": True,
                     "showDrillToggleButton": True,
                     "showDrillUpButton": True,
@@ -200,20 +202,21 @@ json_blob = {
                     "showFilterRestatementButton": True,
                     "showSeeDataLayoutToggleButton": True,
                     "showOptionsMenu": True,
-                    "showTooltipButton": False,
+                    "showTooltipButton": True,
                     "showSmartNarrativeButton": False
                             }],
                 "visualTooltip": [{
                     "show": True,
                     "type": "Default",
-                    "fontSize": 11,
-                    "fontFamily": FONT,
+                    "fontSize": 12,
+                    "fontFamily": "Consolas",
                     "bold": True,
                     "italic": False,
                     "underline": False,
-                    "background": {"solid": {"color": "#636363"}},
+                    "background": {"solid": {"color": TEXT_COLOUR}},
                     "transparency": TOOLTIP_TRANSPARENCY,
-                    "titleFontColor": {"solid": {"color": "#A7A5D9"} },
+                    "fontColor": COLOUR_PALETTE[1],
+                    "titleFontColor": {"solid": {"color": COLOUR_PALETTE[1]}},
                     "ThemeDataColor": {"solid": {"color": "#171717"}}
                             }],
                 "general":  [{
@@ -293,31 +296,35 @@ json_blob = {
                     "innerRadiusRatio": 20
                     }] ,
                 "grid": [{
-                    "gridVertical": True,
-                    "gridVerticalColor": {"solid": {"color": "#0A7AA6"}},
+                    "gridVertical": False,
+                    "gridVerticalColor": {"solid": {"color": COLOUR_PALETTE[2]}},
                     "gridVerticalWeight": 1,
                     "gridHorizontal": False,
-                    "gridHorizontalColor": {"solid": {"color": "#0A7AA6"}},
+                    "gridHorizontalColor": {"solid": {"color": COLOUR_PALETTE[2]}},
                     "gridHorizontalWeight": 1,
                     "textSize": 11,
                     "rowPadding": 2,
                     "outlineColor": {"solid": {"color": "#FFFFFF"}},
-                    "outlineWeight": 1
+                    "outlineWeight": 1,
+                    "imageHeight": 100
                     }],
                 "columnHeaders": [{
                     "fontColor": {"solid": {"color": "#FFFFFF"}},
                     "backColor": {"solid": {"color": COLOUR_PALETTE[0]}},
                     "outline": "Frame",
                     "alignment": "Centre",
-                    "wordWrap": True
+                    "wordWrap": True,
+					"bold": True,
+					"italic": False,
+					"underline": False
                     }],
                 "values": [{
-                    "fontColorPrimary": {"solid": {"color": "#3D4E57"}},
+                    "fontColorPrimary": {"solid": {"color": TEXT_COLOUR}},
                     "backColorPrimary": {"solid": {"color": "#F5F4F0"}},
-                    "fontColorSecondary": {"solid": {"color": "#3D4E57"}},
-                    "backColorSecondary": {"solid": {"color": "#E3DFD4"}},
+                    "fontColorSecondary": {"solid": {"color": TEXT_COLOUR}},
+                    "backColorSecondary": {"solid": {"color": "#E6E6E6"}},
                     "outline": "Frame",
-                    "alignment": "center",
+                    "alignment": "Center",
                     "wordWrap": True
                     }],
                 "total": [{
@@ -326,7 +333,7 @@ json_blob = {
                     "backColor": {"solid": {"color": COLOUR_PALETTE[0]}},
                     "outline": "Frame"
                     }]
-            }
+				}
         },
         "page": {
             "*": {
@@ -364,6 +371,12 @@ json_blob = {
 		    },
         "card": {
 		    "*": {
+                "general": [{
+                   			"altText": "A card visual displaying high level summary values. Developer can choose to add additional info here." 
+							}],
+                "visualHeaderTooltip":[{
+                    		"text": "Select bars or table rows to cross-filter this visual."
+							}],
 				"labels": 	[{
 							"color": {"solid": {"color": "#000000"}},
 							"labelPrecision": 1, # decimal places to display by default
@@ -481,6 +494,107 @@ json_blob = {
 							}]
                     }
                 },
+        "tableEx": {
+            "*": {
+                "general": [{
+                    		"responsive": True,
+							"keepLayerOrder": True,
+                            "altText": "A table visual. Developer can choose to add additional info here.",
+							}],
+                "visualHeaderTooltip":[{
+                    		"text": "Click a column header to sort ascending or descending by that column. Select a row from the table to cross-filter other visuals. Hold CTRL to multi-select rows."
+							}],
+                "title": [{
+							"show": True,
+                            "text": "Add a table title",
+							"fontColor": { "solid": { "color": "#FFFFFF" } },
+							"background": { "solid": { "color": COLOUR_PALETTE[0] } },
+							"alignment": "center",
+							"fontSize": 12,
+							"wordWrap": True,
+                            "bold": True,
+							"italic": True,
+							"underline": False
+							}],
+                "subTitle": [{
+							"show": False
+							}],
+                "values": [{
+                    		"urlIcon": True
+							}]
+			}
+		},
+        "pivotTable": {
+			"*": {
+                "general": [{
+							"responsive": True,
+							"keepLayerOrder": True,
+                    		"altText": "A matrix visual. Developer can choose to add additional info here."
+							}],
+				"visualHeaderTooltip":[{
+							"text": "Select the plus icon to expand rows. Select a cell, row, or column from the table to cross-filter other visuals. Hold CTRL to multi-select."
+							}],
+                "title": [{
+							"show": True,
+                            "text": "Add a matrix title",
+							"fontColor": { "solid": { "color": "#FFFFFF" } },
+							"background": { "solid": { "color": COLOUR_PALETTE[0] } },
+							"alignment": "center",
+							"fontSize": 12,
+							"wordWrap": True,
+                            "bold": True,
+							"italic": True,
+							"underline": False
+							}],
+                "subTitle": [{
+							"show": False
+							}],
+                "stylePreset":[{
+                    		"name":"None"
+							}],
+                "rowHeaders": [{
+							"fontColor": { "solid": { "color": TEXT_COLOUR}},
+							"outline": "Frame",
+							"stepped": True,
+							"steppedLayoutIndentation": 15,
+							"urlIcon": True,
+							"wordWrap": True,
+							"fontFamily": FONT,
+							"fontSize": 12,
+							"alignment": "Left",
+							"showExpandCollapseButtons": True
+							}],
+                "columnTotal":    [{
+							"fontColor": {"solid": {"color": COLOUR_PALETTE[0]}},
+							"backColor": {"solid": {"color": VISUAL_BACKGROUND}},
+							}],
+                "rowTotal":    [{
+							"fontColor": {"solid": {"color": COLOUR_PALETTE[0]}},
+							"backColor": {"solid": {"color": VISUAL_BACKGROUND}},
+							}],
+               "subTotals": [{
+							"$id": "Row",
+							"fontColor": {"solid": {"color": COLOUR_PALETTE[0]}},
+							"backColor": {"solid": {"color": VISUAL_BACKGROUND}},
+                            "applyToHeaders": True,
+							},
+							{
+							"$id": "Column",
+							"fontColor": {"solid": {"color": COLOUR_PALETTE[0]}},
+							"backColor": {"solid": {"color": VISUAL_BACKGROUND}},
+                            "applyToHeaders": True,
+							},
+							{
+							"rowSubTotals": True,
+							"columnSubTotals": True,
+							"rowSubTotalsPosition": "Bottom",
+							"perRowLevel": True,
+							"perColumnLevel": True,
+							"rowSubtotalsLabel": "Total",
+							"columnSubtotalsLabel": "Total"
+							}],
+			}
+		},
         "actionButton": {
             "*": {
                 "shape": [{
@@ -642,7 +756,7 @@ json_blob = {
 							"$id": "selected",
 							"lineColor": {"solid": {"color": "#808080"}},
 							"transparency": 10,
-							"weight": 1
+							"weight": 3
 							},								{
 							"$id": "disabled",
 							"lineColor": {"solid": {"color": "#808080"}},
