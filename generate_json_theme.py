@@ -18,27 +18,30 @@ with open("config.yaml", "r", encoding="utf-8") as f:
 
 # set variables to alter json theme
 NAME = "Python Generated Theme"
-VISUAL_BACKGROUND = "#EFF5F6"
+VISUAL_BACKGROUND = "#F2F2F2"  #EFF5F6
 
 # set theme from yaml config file
-THEME = 0 # 0: tpr; 1: tableau
+# tpr = 0; tableau = 1
+THEME = 0
 
 FONT = config[THEME]["font"]
 PAGE_BACKGROUND = config[THEME]["page"]["background"]
 PAGE_BACKGROUND_TRANSPARENCY = config[THEME]["page"]["transparency"]
 COLOUR_PALETTE = config[THEME]["palette"]
+TOOLTIP_TRANSPARENCY = config[THEME]["tooltip_transparency"]
 
-now = datetime.now().strftime("%Y-%m-%d-%H%M%S")
+now = datetime.now().strftime("%Y-%m-%d-%H%M%S") # remove HMS when finished prototyping
 
 # create json blob
 json_blob = {
     "name": f"{NAME}-{now}",
+    "$schema": "https://raw.githubusercontent.com/microsoft/powerbi-desktop-samples/refs/heads/main/Report%20Theme%20JSON%20Schema/reportThemeSchema-2.138.json",
     "dataColors": COLOUR_PALETTE,
     "firstLevelElements": COLOUR_PALETTE[9],
     "secondLevelElements": COLOUR_PALETTE[3], 
     "thirdLevelElements": "#F3F2F1",
     "fourthLevelElements": "#B3B0AD",
-    "background": "#F2F2F2",
+    "background": VISUAL_BACKGROUND,
     "secondaryBackground": "#C8C6C4",
     "tableAccent": COLOUR_PALETTE[0],
     "good": "#1AAB40",
@@ -178,7 +181,7 @@ json_blob = {
                     "fontSize": 10,
                     "fontFamily": FONT,
                     "background":{"solid":{"color":"#D1CAB8"}},
-                    "transparency": 8,
+                    "transparency": TOOLTIP_TRANSPARENCY,
                     "bold": False,
                     "italic": False,
                     "underline": False
@@ -209,7 +212,7 @@ json_blob = {
                     "italic": False,
                     "underline": False,
                     "background": {"solid": {"color": "#636363"}},
-                    "transparency": 10,
+                    "transparency": TOOLTIP_TRANSPARENCY,
                     "titleFontColor": {"solid": {"color": "#A7A5D9"} },
                     "ThemeDataColor": {"solid": {"color": "#171717"}}
                             }],
@@ -347,7 +350,7 @@ json_blob = {
 							"show": False
 							}],
 				"border": 	[{
-							"show": True,
+							"show": False,
 							"color": {"solid": {"color": COLOUR_PALETTE[0]}},
 							"radius": 3
 							}],
@@ -363,7 +366,8 @@ json_blob = {
 		    "*": {
 				"labels": 	[{
 							"color": {"solid": {"color": "#000000"}},
-							"labelPrecision": 1,
+							"labelPrecision": 1, # decimal places to display by default
+                            "labelDisplayUnits": 0, # callout value display units (0=Auto, 1=None, 1000=Thousands...)
 							"fontSize": 32,
 							"fontFamily": FONT,
 							"preserveWhitespace": False,
@@ -395,7 +399,7 @@ json_blob = {
                 "background": 	[{
 						"show": True,
 						"color": {"solid": {"color": VISUAL_BACKGROUND}},
-						"transparency": 0
+						"transparency": PAGE_BACKGROUND_TRANSPARENCY
 						}],
 				"border": 	[{
 							"show": True,
@@ -415,7 +419,7 @@ json_blob = {
 							"fontSize": 11,
 							"fontFamily": "FONT Black",
 							"background":{"solid":{"color":"#D1CAB8"}},
-							"transparency": 8,
+							"transparency": TOOLTIP_TRANSPARENCY,
 							"bold": True,
 							"italic": False,
 							"underline": False
@@ -432,7 +436,7 @@ json_blob = {
 							"position": "left",
 							"size": 12,
 							"color": {"solid": {"color": "#786DB3"}},
-							"transparency": 0,
+							"transparency": TOOLTIP_TRANSPARENCY,
 							"tooltipText": "Awaiting final confirmation"
 							}],
 				"selection": [{
@@ -479,9 +483,33 @@ json_blob = {
                 },
         "actionButton": {
             "*": {
-				"text": [
+                "shape": [{
+            				"$id": "default",
+							"tileShape": "pill"
+            				}],
+				"text": [{
+							"show": True
+							},
+                            {
+                            "$id": "default",
+                            "text": "Add text",
+                            "fontColor": {"solid": {"color": "#FFFFFF"}},
+							"padding": 3,
+							"verticalAlignment": "middle",
+							"horizontalAlignment": "center",
+							"fontSize": 10,
+							"fontFamily": FONT,
+							"bold": False,
+							"italic": False,
+							"underline": False,
+							"topMargin": 3,
+							"bottomMargin": 3,
+							"leftMargin": 3,
+							"rightMargin": 3
+							},
 							{
 							"$id": "hover",
+                            "text": "Click here",
 							"fontColor": {"solid": {"color": "#FFFFFF"}},
 							"padding": 3,
 							"verticalAlignment": "middle",
@@ -499,6 +527,7 @@ json_blob = {
 							,
 							{
 							"$id": "selected",
+                            "text": "Selected",
 							"fontColor": {"solid": {"color": "#FFFFFF"}},
 							"padding": 3,
 							"verticalAlignment": "middle",
@@ -516,7 +545,7 @@ json_blob = {
 							,
 							{
 							"$id": "disabled",
-							"text": "Button disabled",
+							"text": "Disabled",
 							"fontColor": {"solid": {"color": "#808080"}},
 							"padding": 3,
 							"verticalAlignment": "middle",
@@ -529,59 +558,59 @@ json_blob = {
 							"rightMargin": 3							
 							}],
 				"icon": [{
-							"show": False
+							"show": True
 							},
 							{
 							"$id": "default",
-							"shapeType": "help",
+							"shapeType": "rightArrow",
 							"padding": 3,
 							"verticalAlignment": "middle",
-							"horizontalAlignment": "center",
-							"lineColor": {"solid": {"color": COLOUR_PALETTE[5]}},
+							"horizontalAlignment": "right",
+							"lineColor": {"solid": {"color": COLOUR_PALETTE[3]}},
 							"lineTransparency": 10,
 							"lineWeight": 2,
 							"topMargin": 3,
 							"bottomMargin": 3,
 							"leftMargin": 3,
 							"rightMargin": 3,
-							"placement": "left",
-							"iconSize": 22
+							"placement": "right",
+							"iconSize": 16
 							},
 							{
 							"$id": "hover",
-							"shapeType": "help",
+							"shapeType": "rightArrow",
 							"padding": 3,
 							"verticalAlignment": "middle",
-							"horizontalAlignment": "center",
-							"lineColor": {"solid": {"color": "#F5F4F0"}},
+							"horizontalAlignment": "right",
+							"lineColor": {"solid": {"color": COLOUR_PALETTE[3]}},
 							"lineTransparency": 10,
 							"lineWeight": 2,
 							"topMargin": 3,
 							"bottomMargin": 3,
 							"leftMargin": 3,
 							"rightMargin": 3,
-							"placement": "left",
-							"iconSize": 22
+							"placement": "right",
+							"iconSize": 16
 							},
 							{
 							"$id": "selected",
-							"shapeType": "help",
+							"shapeType": "rightArrow",
 							"padding": 3,
 							"verticalAlignment": "middle",
 							"horizontalAlignment": "center",
 							"lineColor": {"solid": {"color": COLOUR_PALETTE[0]}},
 							"lineTransparency": 10,
-							"lineWeight": 5,
+							"lineWeight": 2,
 							"topMargin": 3,
 							"bottomMargin": 3,
 							"leftMargin": 3,
 							"rightMargin": 3,
-							"placement": "left",
-							"iconSize": 22
+							"placement": "right",
+							"iconSize": 16
 							},
 							{
 							"$id": "disabled",
-							"shapeType": "help",
+							"shapeType": "blank",
 							"padding": 3,
 							"verticalAlignment": "middle",
 							"horizontalAlignment": "center",
@@ -592,8 +621,8 @@ json_blob = {
 							"bottomMargin": 3,
 							"leftMargin": 3,
 							"rightMargin": 3,
-							"placement": "left",
-							"iconSize": 22
+							"placement": "right",
+							"iconSize": 4
 							}],
 				"outline": [{
 							"show": True
@@ -657,7 +686,7 @@ json_blob = {
 				"visualLink": [{
 							"show": True,
 							"type": "Bookmark",
-							"tooltip": "Click button to activate bookmark"
+							"tooltip": "Click here"
 							}],
 				"background": 	[{
 							"show": False,
