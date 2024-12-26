@@ -439,61 +439,6 @@ json_blob = {
 							}]
                     }
                 },
-        "slicer": {
-            "*": {
-				"data":  [{
-							"mode": "Before"													
-							}],
-				"pendingChangesIcon": [{
-							"show": True,
-							"position": "left",
-							"size": 12,
-							"color": {"solid": {"color": "#786DB3"}},
-							"transparency": TOOLTIP_TRANSPARENCY,
-							"tooltipText": "Awaiting final confirmation"
-							}],
-				"selection": [{
-							"show": True,
-							"singleSelect": True,
-							"strictSingleSelect": False,
-							"selectAllCheckboxEnabled": True
-							}],
-				"numericInputStyle":[{
-							"fontColor": {"solid": {"color": "#786DB3"}},
-							"backgroundColor": {"solid": {"color": "#B7B7B7"}},
-							"fontSize": 9,
-							"fontFamily": FONT
-							}],
-				"slider": 	[{ 
-							"color": {"solid": { "color": COLOUR_PALETTE[1]} }
-							}],
-				"date":[{
-							"fontColor": {"solid": {"color": "#6e6e6e"}},
-							"background": {"solid": {"color": "#cfcfcf"}},
-							"fontFamily": FONT,
-							"textSize": 10
-							}],
-				"items":    [{
-							"fontColor": {"solid": {"color": "#000000"}},
-							"backgroundColor": {"solid": {"color": "#786DB3"}},
-							"outline": "None",
-							"textSize": 10,
-							"fontFamily": FONT,
-							"bold": False,
-							"italic": False,
-							"underline": False
-							}],
-				"title":    [{
-							"show": False
-							}],
-				"subTitle":    [{
-							"show": False
-							}],
-				"divider":    [{
-							"show": False
-							}]
-                    }
-                },
         "tableEx": {
             "*": {
                 "general": [{
@@ -595,8 +540,33 @@ json_blob = {
 							}],
 			}
 		},
+		# Dashboard styling
+        "slicer": {
+            "*":{
+                "general": [{
+							"responsive": True,
+							"keepLayerOrder": True,
+                    		"altText": "A slicer used for page-level filtering. Developer can choose to add additional info here."
+							}],
+				"visualHeaderTooltip":[{
+							"text": "Use this slicer for page-level filtering. Select an item or slider the bar to filter the page. Hold CTRL to multi-select if necessary."
+							}],
+                "data": [{
+							"mode": "HorizontalList"
+							}],
+                "selection": [{
+							"show": True,
+							"singleSelect": False,
+							"strictSingleSelect": False,
+							"selectAllCheckboxEnabled": True
+							}]
+			}
+		},
         "actionButton": {
             "*": {
+                "visualHeaderTooltip":[{
+							"text": "Select items to navigate to button path. Follow instructions in tooltip text that appears when hovering to enable this button if necessary."
+							}],
                 "shape": [{
             				"$id": "default",
 							"tileShape": "pill"
