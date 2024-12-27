@@ -24,7 +24,7 @@ TEXT_COLOUR = "#3D4E57"
 
 # set theme from yaml config file
 # tpr = 0; tableau = 1
-THEME = 1
+THEME = 0
 
 FONT = config[THEME]["font"]
 PAGE_BACKGROUND = config[THEME]["page"]["background"]
@@ -172,14 +172,13 @@ json_blob = {
                     }],
                 "dropShadow":   [{
                     "show": True,
-                    "color": {"solid": {"color": COLOUR_PALETTE[0]}},
+                    "color": {"solid": {"color": "#424242"}},
                     "position":"Outer",
                     "preset":"BottomRight"
                     }],
                 "visualHeaderTooltip":[{
                     "type": "Default",
                     "titleFontColor":{"solid":{"color": COLOUR_PALETTE[1]}},
-                    "text": "Hover over the visual level filter icon to see if any filters are applied to this visual",
                     "fontSize": 12,
                     "fontFamily": FONT,
                     "background":{"solid":{"color": TEXT_COLOUR}},
@@ -221,7 +220,7 @@ json_blob = {
                             }],
                 "general":  [{
                     "responsive": True,
-                    "altText": "Enter an alternative text"
+                    "keepLayerOrder": True
                             }],
                 "padding": [{
                     "left":3,
@@ -265,12 +264,14 @@ json_blob = {
                 "labels": [{
                     "show": True,
                     "labelPosition": "Auto",
+					"labelDisplayUnits": 0, # value display units (0=Auto, 1=None, 1000=Thousands...)
+                    "labelPrecision": 1,
                     "color": {"solid": {"color": "#030303"}},
                     "fontFamily": FONT,
-                    "fontSize":8,
+                    "fontSize": 8,
                     "enableBackground": True,
-                    "backgroundColor": {"solid": {"color": "#E8E8E8"}},
-                    "backgroundTransparency": 10,
+                    "backgroundColor": {"solid": {"color": "#D6D6D6"}},
+                    "backgroundTransparency": 15,
                     "backgroundRadius": 5
                     }],
                 "plotArea": [{
@@ -362,10 +363,7 @@ json_blob = {
 							"radius": 3
 							}],
 				"dropShadow": 	[{
-							"show": False,
-							"color": {"solid": {"color": "#E8E8E8"}},
-							"position":"Outer",
-							"preset":"TopLeft"
+							"show": False
 							}]
 			    }
 		    },
@@ -375,12 +373,10 @@ json_blob = {
                    			"altText": "A card visual displaying high level summary values. Developer can choose to add additional info here." 
 							}],
                 "visualHeaderTooltip":[{
-                    		"text": "Select bars or table rows to cross-filter this visual."
+                    		"text": "Select chart bars or table rows to cross-filter this visual."
 							}],
 				"labels": 	[{
 							"color": {"solid": {"color": "#000000"}},
-							"labelPrecision": 1, # decimal places to display by default
-                            "labelDisplayUnits": 0, # callout value display units (0=Auto, 1=None, 1000=Thousands...)
 							"fontSize": 32,
 							"fontFamily": FONT,
 							"preserveWhitespace": False,
@@ -419,12 +415,6 @@ json_blob = {
 							"color": {"solid": {"color": "#F5F4F0"}},
 							"radius": 10
 							}],
-				"dropShadow": 	[{
-							"show": True,
-							"color": {"solid": {"color": "#808080"}},
-							"position":"Outer",
-							"preset":"BottomRight"
-							}],
 				"visualTooltip":[{
 							"show": False,
 							"titleFontColor":{"solid":{"color":"#FFFFFF"}},
@@ -442,8 +432,6 @@ json_blob = {
         "tableEx": {
             "*": {
                 "general": [{
-                    		"responsive": True,
-							"keepLayerOrder": True,
                             "altText": "A table visual. Developer can choose to add additional info here.",
 							}],
                 "visualHeaderTooltip":[{
@@ -472,8 +460,6 @@ json_blob = {
         "pivotTable": {
 			"*": {
                 "general": [{
-							"responsive": True,
-							"keepLayerOrder": True,
                     		"altText": "A matrix visual. Developer can choose to add additional info here."
 							}],
 				"visualHeaderTooltip":[{
@@ -543,26 +529,47 @@ json_blob = {
 		# Dashboard styling
         "slicer": {
             "*":{
-                "general": [{
-							"responsive": True,
-							"keepLayerOrder": True,
+				"general": [{
                     		"altText": "A slicer used for page-level filtering. Developer can choose to add additional info here."
+							}],
+                "title": [{
+							"show": False
+							}],
+                "header": [{
+							"textSize": 10,
+							"bold": True
 							}],
 				"visualHeaderTooltip":[{
 							"text": "Use this slicer for page-level filtering. Select an item or slider the bar to filter the page. Hold CTRL to multi-select if necessary."
 							}],
-                "data": [{
-							"mode": "HorizontalList"
+				"data": [{
+							"mode": "Dropdown"
 							}],
-                "selection": [{
+				"selection": [{
 							"show": True,
 							"singleSelect": False,
 							"strictSingleSelect": False,
 							"selectAllCheckboxEnabled": True
+							}],
+				"numericInputStyle":[{
+							"fontColor": {"solid": {"color": "#786DB3"}},
+							"backgroundColor": {"solid": {"color": "#B7B7B7"}},
+							"fontSize": 9,
+							"fontFamily": FONT
+							}],
+				"items":    [{
+							"fontColor": {"solid": {"color": COLOUR_PALETTE[0]}},
+                            "background": {"solid": {"color": VISUAL_BACKGROUND}},
+							"outline": "None",
+							"textSize": 10,
+							"fontFamily": FONT,
+							"bold": False,
+							"italic": False,
+							"underline": False
 							}]
 			}
 		},
-        "actionButton": {
+		"actionButton": {
             "*": {
                 "visualHeaderTooltip":[{
 							"text": "Select items to navigate to button path. Follow instructions in tooltip text that appears when hovering to enable this button if necessary."

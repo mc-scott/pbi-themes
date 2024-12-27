@@ -6,7 +6,7 @@ A script `generate_json_theme.py` uses global variables to set a Power BI Theme 
 
 The foundations of this project are based on the book [Pro Power BI Theme Creation](https://link.springer.com/book/10.1007/978-1-4842-9633-2) by Adam Aspin where I got most of the information about how to edit JSON theme documents. I have adapted this information into a theme generator script (and eventually application) so advanced themes can be created by end users without the nitty-gritty knowledge of JSON syntax otherwise required to do so.
 
-### Visual assets ToDo:
+### Visual assets to style:
 
 Visual Type | Progress
 ---- | ----
@@ -15,5 +15,6 @@ Bookmark | Done
 Textbox | Done
 Table | Done
 Matrix | Done
-Slicer | Next
+Slicer | Done
+Bar charts | Next
 ... | 
